@@ -36,7 +36,7 @@ public class CollectionUtilsTest {
 	public void testForEach() {
 		final List<Integer> res = new LinkedList<Integer>();
 		forEach(asList(1, 2, 3), new Closure<Integer>() {
-			void execute(Integer a) { res.add(a * 3); }
+			public void execute(Integer a) { res.add(a * 3); }
 		});
 		assertEquals(3, res.size());
 	}
@@ -44,7 +44,7 @@ public class CollectionUtilsTest {
 	@Test
 	public void testMap() {
 		Collection<Integer> map = map(asList(1, 2, 3), new Function<Integer, Integer>() {
-			Integer apply(Integer a) { return a + 2; }
+			public Integer apply(Integer a) { return a + 2; }
 		});
 		assertEquals(asList(3,4,5), map);
 	}
@@ -52,7 +52,7 @@ public class CollectionUtilsTest {
 	@Test
 	public void testReduce() {
 		String str = reduce(asList("A", "B", "C"), new Function2<String, String, String>() {
-			String apply(String a, String b) {
+			public String apply(String a, String b) {
 				return format("%s,%s", a, b);
 			}
 		});
