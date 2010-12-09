@@ -3,9 +3,20 @@ package name.nirav.common.utils.collections;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CollectionUtils {
 	
+    public static <T> List<T> newList(){
+        return new LinkedList<T>();
+    }
+    
+    public static <K,V> Map<K,V> newMap(){
+        return new ConcurrentHashMap<K, V>();
+    }
+    
 	public static <C extends Collection<T>, T> Collection<T> filter(C coll, Predicate<T> predicate) {
 		Collection<T> retVal = new LinkedList<T>();
 		for (T elem : coll) {
