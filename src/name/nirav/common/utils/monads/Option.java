@@ -44,7 +44,7 @@ public abstract class Option<T> extends AbstractList<T> implements
     public abstract <Z> void getOrElse(Closure<Z> closure, Z param);
     
     /**
-     * Takes a partial value and a function, returns function's optional return
+     * Fancy version of {@link #getOrElse(Object)}, Takes a partial value and a function, returns function's optional return
      * value if current optional value is null.
      * 
      * @param <B>
@@ -52,7 +52,7 @@ public abstract class Option<T> extends AbstractList<T> implements
      * @param replacement
      * @return
      */
-    public abstract <B> Option<T> substitute(Function<B, T> fn, B partial);
+    public abstract <B> Option<T> getOrElse(Function<B, T> fn, B partial);
     
     public <B> Collection<B> map(Function<T, B> functor){
         return CollectionUtils.map(this, functor);

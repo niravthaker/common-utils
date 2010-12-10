@@ -36,7 +36,7 @@ public final class None<T> extends Option<T> {
     }
 
     @Override
-    public <B> Option<T> substitute(Function<B, T> fn, B partial) {
+    public <B> Option<T> getOrElse(Function<B, T> fn, B partial) {
         return Options.wrap(fn.apply(partial));
     }
 
