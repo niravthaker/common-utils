@@ -26,10 +26,10 @@ public class Tuple<A, B> {
 	    return Arrays.asList(first, rest);
 	}
 	
-	public static <A, B> Tuple<A, B> create(A first, B rest){
+	public static <A, B> Tuple<A, B> from(A first, B rest){
 		return new Tuple<A, B>(first, rest);
 	}
-    public static <A, B> Tuple<Option<A>, Option<B>> createOptional(A first, B rest){
+    public static <A, B> Tuple<Option<A>, Option<B>> optionalFrom(A first, B rest){
         return new Tuple<Option<A>, Option<B>>(Options.wrap(first), Options.wrap(rest));
     }
 
