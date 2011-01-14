@@ -16,18 +16,19 @@ import name.nirav.common.utils.monads.Options;
  * @author Nirav Thaker
  */
 public class CollectionUtils {
-	
-	public static <T> List<T> newList(){
-        return new LinkedList<T>();
-    }
-	public static <T> Set<T> newSet(){
-        return new ConcurrentHashSet<T>();
-    }
-    
-    public static <K,V> Map<K,V> newMap(){
-        return new ConcurrentHashMap<K, V>();
-    }
-    
+
+	public static <T> List<T> newList() {
+		return new LinkedList<T>();
+	}
+
+	public static <T> Set<T> newSet() {
+		return new ConcurrentHashSet<T>();
+	}
+
+	public static <K, V> Map<K, V> newMap() {
+		return new ConcurrentHashMap<K, V>();
+	}
+
 	public static <C extends Collection<T>, T> void forEach(C coll, Closure<T> closure) {
 		for (C c : Options.wrap(coll))
 			for (T elem : c)
@@ -44,7 +45,7 @@ public class CollectionUtils {
 		});
 		return retVal;
 	}
-	
+
 	private static <C extends Collection<?>, T> Collection<T> collectionLike(C coll) {
 		switch (Options.wrap(coll).type()) {
 		case Some:
@@ -53,11 +54,11 @@ public class CollectionUtils {
 			return CollectionUtils.<T> newList();
 		}
 	}
-	
+
 	public static <C extends Collection<T>, T> boolean exists(C coll, Predicate<T> predicate) {
 		return !filter(coll, predicate).isEmpty();
 	}
-	
+
 	public static <C extends Collection<T>, T, B> Collection<B> map(C coll, final Fn<T, B> functor) {
 		final Collection<B> retVal = collectionLike(coll);
 		forEach(coll, new Closure<T>() {
@@ -67,7 +68,7 @@ public class CollectionUtils {
 		});
 		return retVal;
 	}
-	
+
 	public static <C extends Collection<T>, T, B> T reduce(C coll, Fn2<T, T, T> fn) {
 		Iterator<T> iterator = coll.iterator();
 		T accum = null;
@@ -81,5 +82,5 @@ public class CollectionUtils {
 		}
 		return accum;
 	}
-	
+
 }
