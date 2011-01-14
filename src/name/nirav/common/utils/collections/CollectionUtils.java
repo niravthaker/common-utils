@@ -5,12 +5,21 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Collection related utilities.
+ * 
+ * @author Nirav Thaker
+ */
 public class CollectionUtils {
 	
-    public static <T> List<T> newList(){
+	public static <T> List<T> newList(){
         return new LinkedList<T>();
+    }
+	public static <T> Set<T> newSet(){
+        return new ConcurrentHashSet<T>();
     }
     
     public static <K,V> Map<K,V> newMap(){
@@ -36,7 +45,7 @@ public class CollectionUtils {
 		}
 	}
 	
-	public static <C extends Collection<T>, T, B> Collection<B> map(C coll, Function<T, B> functor) {
+	public static <C extends Collection<T>, T, B> Collection<B> map(C coll, Fn<T, B> functor) {
 		Collection<B> retVal = new LinkedList<B>();
 		for (T elem : coll) {
 			retVal.add(functor.apply(elem));
@@ -44,7 +53,7 @@ public class CollectionUtils {
 		return retVal;
 	}
 	
-	public static <C extends Collection<T>, T, B> T reduce(C coll, Function2<T, T, T> fn) {
+	public static <C extends Collection<T>, T, B> T reduce(C coll, Fn2<T, T, T> fn) {
 		Iterator<T> iterator = coll.iterator();
 		T accum = null;
 		while (iterator.hasNext()) {

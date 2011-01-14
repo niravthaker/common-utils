@@ -1,9 +1,13 @@
 package name.nirav.common.utils.monads;
 
 import name.nirav.common.utils.collections.Closure;
-import name.nirav.common.utils.collections.Function;
+import name.nirav.common.utils.collections.Fn;
 import name.nirav.common.utils.monads.Options.OptionType;
 
+/**
+ * An option with "Some" value present.
+ * @author Nirav Thaker
+ */
 public final class Some<T> extends Option<T> {
     private final T val;
 
@@ -36,7 +40,7 @@ public final class Some<T> extends Option<T> {
     }
 
     @Override
-    public <B> Option<T> getOrElse(Function<B, T> fn, B partial) {
+    public <B> Option<T> getOrElse(Fn<B, T> fn, B partial) {
         return create(val);
     }
 

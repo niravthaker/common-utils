@@ -1,5 +1,9 @@
 package name.nirav.common.utils.monads;
 
+/**
+ * Utility factory to create Option types.
+ * @author Nirav Thaker
+ */
 public class Options {
     public enum OptionType{
         None, Some

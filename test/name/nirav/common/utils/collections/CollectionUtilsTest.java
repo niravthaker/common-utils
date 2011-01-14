@@ -43,7 +43,7 @@ public class CollectionUtilsTest {
 
 	@Test
 	public void testMap() {
-		Collection<Integer> map = map(asList(1, 2, 3), new Function<Integer, Integer>() {
+		Collection<Integer> map = map(asList(1, 2, 3), new Fn<Integer, Integer>() {
 			public Integer apply(Integer a) { return a + 2; }
 		});
 		assertEquals(asList(3,4,5), map);
@@ -51,7 +51,7 @@ public class CollectionUtilsTest {
 
 	@Test
 	public void testReduce() {
-		String str = reduce(asList("A", "B", "C"), new Function2<String, String, String>() {
+		String str = reduce(asList("A", "B", "C"), new Fn2<String, String, String>() {
 			public String apply(String a, String b) {
 				return format("%s,%s", a, b);
 			}

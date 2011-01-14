@@ -1,10 +1,15 @@
 package name.nirav.common.utils.monads;
 
 import name.nirav.common.utils.collections.Closure;
-import name.nirav.common.utils.collections.Function;
+import name.nirav.common.utils.collections.Fn;
 import name.nirav.common.utils.monads.Options.OptionType;
 
 
+/**
+ * Type representing absense of values.
+ * 
+ * @author Nirav Thaker
+ */
 public final class None<T> extends Option<T> {
     
     @SuppressWarnings("rawtypes")
@@ -36,7 +41,7 @@ public final class None<T> extends Option<T> {
     }
 
     @Override
-    public <B> Option<T> getOrElse(Function<B, T> fn, B partial) {
+    public <B> Option<T> getOrElse(Fn<B, T> fn, B partial) {
         return Options.wrap(fn.apply(partial));
     }
 

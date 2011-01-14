@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import name.nirav.common.utils.collections.Closure;
 import name.nirav.common.utils.collections.CollectionUtils;
-import name.nirav.common.utils.collections.Function;
-import name.nirav.common.utils.collections.Function2;
+import name.nirav.common.utils.collections.Fn;
+import name.nirav.common.utils.collections.Fn2;
 import name.nirav.common.utils.monads.Options.OptionType;
 
 /**
@@ -52,12 +52,12 @@ public abstract class Option<T> extends AbstractList<T> implements
      * @param replacement
      * @return
      */
-    public abstract <B> Option<T> getOrElse(Function<B, T> fn, B partial);
+    public abstract <B> Option<T> getOrElse(Fn<B, T> fn, B partial);
     
-    public <B> Collection<B> map(Function<T, B> functor){
+    public <B> Collection<B> map(Fn<T, B> functor){
         return CollectionUtils.map(this, functor);
     }
-    public T reduce(Function2<T, T, T> functor){
+    public T reduce(Fn2<T, T, T> functor){
         return CollectionUtils.reduce(this, functor);
     }
 }

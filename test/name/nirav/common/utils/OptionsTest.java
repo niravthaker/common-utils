@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Date;
 
-import name.nirav.common.utils.collections.Function;
+import name.nirav.common.utils.collections.Fn;
 import name.nirav.common.utils.monads.Option;
 import name.nirav.common.utils.monads.Options;
 import name.nirav.common.utils.monads.Options.OptionType;
@@ -15,8 +15,8 @@ import org.junit.Test;
 
 public class OptionsTest {
 
-    Tuple<Date, Date>                 nullableTuple = Tuple.from(null, null);
-    Tuple<Option<Date>, Option<Date>> optionalTuple = Tuple.optionalFrom(null, null);
+    Tuple<Date, Date>                 nullableTuple = Tuple.of(null, null);
+    Tuple<Option<Date>, Option<Date>> optionalTuple = Tuple.optionallyOf(null, null);
     
     @Test
     public void nullCheck() {
@@ -59,7 +59,7 @@ public class OptionsTest {
     @Test
     public void getOrElseReturnComputedValue() {
         //fourth way to avoid check for null;
-        Option<Date> option = optionalTuple.rest().getOrElse(new Function<Long, Date>() {
+        Option<Date> option = optionalTuple.rest().getOrElse(new Fn<Long, Date>() {
             @Override
             public Date apply(Long a) {
                 return new Date(a);
@@ -73,7 +73,7 @@ public class OptionsTest {
     @Test
     public void alternateProcessingOnNulls() {
         //Alternate processing, convert date to long in null-safe way.
-        Function<Date, Long> dateToLongFunctor = new Function<Date, Long>() {
+        Fn<Date, Long> dateToLongFunctor = new Fn<Date, Long>() {
             public Long apply(Date a) { return a.getTime(); }
         };
         
