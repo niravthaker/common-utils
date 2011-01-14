@@ -24,7 +24,8 @@ public class CollectionUtilsTest {
 	
 	@Test
 	public void testFilter() {
-		assertEquals(1, filter(asList("Nirav", "Hiren", "Shefali"), length5OrMore).size());
+		Collection<String> coll = filter(asList("Nirav", "Hiren", "Shefali"), length5OrMore);
+		assertEquals(1, coll.size());
 	}
 
 	@Test

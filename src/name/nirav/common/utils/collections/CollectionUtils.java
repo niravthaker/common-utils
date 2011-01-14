@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import name.nirav.common.utils.monads.Options;
+
 /**
  * Collection related utilities.
  * 
@@ -26,30 +28,43 @@ public class CollectionUtils {
         return new ConcurrentHashMap<K, V>();
     }
     
-	public static <C extends Collection<T>, T> Collection<T> filter(C coll, Predicate<T> predicate) {
-		Collection<T> retVal = new LinkedList<T>();
-		for (T elem : coll) {
-			if(predicate.eval(elem))
-				retVal.add(elem);
-		}
+	public static <C extends Collection<T>, T> void forEach(C coll, Closure<T> closure) {
+		for (C c : Options.wrap(coll))
+			for (T elem : c)
+				closure.execute(elem);
+	}
+
+	public static <C extends Collection<T>, T> Collection<T> filter(C coll, final Predicate<T> predicate) {
+		final Collection<T> retVal = collectionLike(coll);
+		forEach(coll, new Closure<T>() {
+			public void execute(T a) {
+				if (predicate.eval(a))
+					retVal.add(a);
+			}
+		});
 		return retVal;
+	}
+	
+	private static <C extends Collection<?>, T> Collection<T> collectionLike(C coll) {
+		switch (Options.wrap(coll).type()) {
+		case Some:
+			return coll instanceof List ? CollectionUtils.<T> newList() : CollectionUtils.<T> newSet();
+		default:
+			return CollectionUtils.<T> newList();
+		}
 	}
 	
 	public static <C extends Collection<T>, T> boolean exists(C coll, Predicate<T> predicate) {
 		return !filter(coll, predicate).isEmpty();
 	}
 	
-	public static <C extends Collection<T>, T> void forEach(C coll, Closure<T> closure) {
-		for(T elem : coll) {
-			closure.execute(elem);
-		}
-	}
-	
-	public static <C extends Collection<T>, T, B> Collection<B> map(C coll, Fn<T, B> functor) {
-		Collection<B> retVal = new LinkedList<B>();
-		for (T elem : coll) {
-			retVal.add(functor.apply(elem));
-		}
+	public static <C extends Collection<T>, T, B> Collection<B> map(C coll, final Fn<T, B> functor) {
+		final Collection<B> retVal = collectionLike(coll);
+		forEach(coll, new Closure<T>() {
+			public void execute(T a) {
+				retVal.add(functor.apply(a));
+			}
+		});
 		return retVal;
 	}
 	
